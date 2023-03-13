@@ -5,7 +5,7 @@ function App() {
   const [expenses, setExpenses] = useState([]);
 
   useEffect(() => {
-    fetch("http://fherdelpino.appspot.com/expense/all")
+    fetch("https://fherdelpino.appspot.com/expense/all")
       .then((response) => response.json())
       .then((data) => {
         console.log(data);

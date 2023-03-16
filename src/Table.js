@@ -1,7 +1,7 @@
 const Table = ({ title, columnHeaders, data, handleDelete }) => {
   return (
-    <div className="expensesList">
-      <h1>{title}</h1>
+    <div className="table">
+      <h2>{title}</h2>
       <table>
         <thead>
           <tr>

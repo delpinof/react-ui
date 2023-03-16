@@ -28,9 +28,7 @@ function App() {
       .then((response) => {
         console.log("fetch DELETE from handleDelete", response);
         if (response.ok) {
-          console.log("filtering");
           const newExpenses = expenses.filter((record) => record.id !== id);
-          console.log(newExpenses);
           setExpenses(newExpenses);
         }
       })

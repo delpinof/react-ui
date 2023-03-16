@@ -6,6 +6,7 @@ import Table from "./Table";
 function App() {
   const apiUrl = "https://fherdelpino.appspot.com/expense";
   const [expenses, setExpenses] = useState([]);
+  const columnHeaders = ["name", "date", "amount", "description"];
 
   useEffect(() => {
     fetch(apiUrl + "/all")
@@ -16,8 +17,6 @@ function App() {
       });
   }, []);
 
-  const columnHeaders = ["name", "date", "amount", "description"];
-
   function handleDelete(id) {
     fetch(apiUrl + "/" + id, {
       method: "DELETE",
@@ -26,7 +25,7 @@ function App() {
       },
     })
       .then((response) => {
-        console.log("fetch DELETE from handleDelete", response);
+        console.log("fetch DELETE from handleDelete");
         if (response.ok) {
           const newExpenses = expenses.filter((record) => record.id !== id);
           setExpenses(newExpenses);

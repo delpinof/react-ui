@@ -1,4 +1,16 @@
-const Table = ({ title, columnHeaders, data, handleDelete }) => {
+import { useHistory } from "react-router-dom";
+
+const Table = ({ title, columnHeaders, data }) => {
+  const history = useHistory();
+
+  const handleDelete = (id) => {
+    console.log("Deleting..." + id);
+    fetch("https://fherdelpino.appspot.com/expense/" + id, {
+      method: "DELETE",
+    }).then(() => {
+      history.push("/");
+    });
+  };
   return (
     <div className="table">
       <h2>{title}</h2>

@@ -7,21 +7,6 @@ const Home = () => {
 
   const { data: expenses, isPending, error } = useFetch(apiUrl + "/all");
 
-  function handleDelete(id) {
-    fetch(apiUrl + "/" + id, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        console.log("fetch DELETE from handleDelete");
-      })
-      .catch((error) => {
-        // Handle error
-      });
-  }
-
   return (
     <div className="home">
       {error && <div>{error}</div>}
@@ -31,7 +16,6 @@ const Home = () => {
           title="Expenses"
           columnHeaders={columnHeaders}
           data={expenses}
-          handleDelete={handleDelete}
         ></Table>
       )}
     </div>

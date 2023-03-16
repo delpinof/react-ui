@@ -8,7 +8,7 @@ const Create = () => {
   let month = new Intl.DateTimeFormat("en", { month: "2-digit" }).format(today);
   let day = new Intl.DateTimeFormat("en", { day: "2-digit" }).format(today);
   const [date, setDate] = useState(`${year}-${month}-${day}`);
-  const [amount, setAmount] = useState(0.0);
+  const [amount, setAmount] = useState("");
   const [desc, setDesc] = useState("");
   const [isPending, setIsPending] = useState(false);
   const history = useHistory();
@@ -45,16 +45,17 @@ const Create = () => {
         ></input>
         <label>date:</label>
         <input
-          type="text"
+          type="date"
           required
           value={date}
           onChange={(e) => setDate(e.target.value)}
         ></input>
         <label>amount:</label>
         <input
-          type="text"
+          type="number"
           required
           value={amount}
+          placeholder="0.0"
           onChange={(e) => setAmount(e.target.value)}
         ></input>
         <label>description:</label>

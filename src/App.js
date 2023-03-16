@@ -1,41 +1,55 @@
 import "./App.css";
 import { useEffect, useState } from "react";
+import Navbar from "./Navbar";
+import Table from "./Table";
 
 function App() {
+  const apiUrl = "https://fherdelpino.appspot.com/expense";
   const [expenses, setExpenses] = useState([]);
 
   useEffect(() => {
-    fetch("https://fherdelpino.appspot.com/expense/all")
+    fetch(apiUrl + "/all")
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        console.log("fetch GET from useEffect");
         setExpenses(data);
       });
   }, []);
 
+  const columnHeaders = ["name", "date", "amount", "description"];
+
+  function handleDelete(id) {
+    fetch(apiUrl + "/" + id, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        console.log("fetch DELETE from handleDelete", response);
+        if (response.ok) {
+          console.log("filtering");
+          const newExpenses = expenses.filter((record) => record.id !== id);
+          console.log(newExpenses);
+          setExpenses(newExpenses);
+        }
+      })
+      .catch((error) => {
+        // Handle error
+      });
+  }
+
   return (
     <div className="App">
-      <h1>List of Expenses</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>name</th>
-            <th>date</th>
-            <th>amount</th>
-            <th>description</th>
-          </tr>
-        </thead>
-        <tbody>
-          {expenses.map((expense) => (
-            <tr>
-              <td>{expense.name}</td>
-              <td>{expense.date}</td>
-              <td>{expense.amount}</td>
-              <td>{expense.description}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <Navbar></Navbar>
+      <div className="content">
+        <Table
+          title="Expenses"
+          columnHeaders={columnHeaders}
+          data={expenses}
+          handleDelete={handleDelete}
+        ></Table>
+      </div>
     </div>
   );
 }

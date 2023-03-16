@@ -1,6 +1,6 @@
 const Table = ({ title, columnHeaders, data, handleDelete }) => {
   return (
-    <div className="expensesList">
+    <div className="table">
       <h1>{title}</h1>
       <table>
         <thead>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 const Create = () => {
   const [name, setName] = useState("Elizabeth");
@@ -6,16 +7,11 @@ const Create = () => {
   let year = new Intl.DateTimeFormat("en", { year: "numeric" }).format(today);
   let month = new Intl.DateTimeFormat("en", { month: "2-digit" }).format(today);
   let day = new Intl.DateTimeFormat("en", { day: "2-digit" }).format(today);
-  console.log(`${year}-${month}-${day}`);
-  console.log("pure date: " + today);
-  console.log("ISO date: " + today.toISOString());
-  console.log(
-    "AU date: " +
-      today.toLocaleString("en-AU", { timeZone: "Australia/Sydney" })
-  );
   const [date, setDate] = useState(`${year}-${month}-${day}`);
   const [amount, setAmount] = useState(0.0);
   const [desc, setDesc] = useState("");
+  const [isPending, setIsPending] = useState(false);
+  const history = useHistory();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,6 +27,9 @@ const Create = () => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(expense),
+    }).then(() => {
+      setIsPending(true);
+      history.push("/");
     });
   };
   return (
@@ -64,7 +63,8 @@ const Create = () => {
           value={desc}
           onChange={(e) => setDesc(e.target.value)}
         ></input>
-        <button>Add expense</button>
+        {!isPending && <button>Add expense</button>}
+        {isPending && <button disabled>Adding expense...</button>}
       </form>
     </div>
   );

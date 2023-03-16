@@ -24,28 +24,32 @@ const Table = ({ title, columnHeaders, data }) => {
     <div className="table">
       <h2>{title}</h2>
       {errorMsg && <p>{errorMsg}</p>}
-      <table>
-        <thead>
-          <tr>
-            {columnHeaders.map((header) => (
-              <th key={header}>{header}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {records.map((record) => (
-            <tr key={record.id}>
-              <td>{record.name}</td>
-              <td>{record.date}</td>
-              <td>{record.amount}</td>
-              <td>{record.description}</td>
-              <td>
-                <button onClick={() => handleDelete(record.id)}>delete</button>
-              </td>
+      <figure>
+        <table>
+          <thead>
+            <tr>
+              {columnHeaders.map((header) => (
+                <th key={header}>{header}</th>
+              ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {records.map((record) => (
+              <tr key={record.id}>
+                <td>{record.name}</td>
+                <td>{record.date}</td>
+                <td>{record.amount}</td>
+                <td>{record.description}</td>
+                <td>
+                  <button onClick={() => handleDelete(record.id)}>
+                    delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </figure>
     </div>
   );
 };

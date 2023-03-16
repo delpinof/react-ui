@@ -22,7 +22,6 @@ const Create = () => {
       amount: amountNumber,
       description: desc,
     };
-    console.log(JSON.stringify(expense));
     fetch("https://fherdelpino.appspot.com/expense", {
       method: "POST",
       headers: { "Content-Type": "application/json" },

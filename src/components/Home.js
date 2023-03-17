@@ -1,5 +1,5 @@
 import Table from "./Table";
-import useFetch from "./useFetch";
+import useFetch from "../hooks/useFetch";
 
 const Home = () => {
   const apiUrl = "https://fherdelpino.appspot.com/expense";

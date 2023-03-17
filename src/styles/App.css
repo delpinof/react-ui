@@ -101,3 +101,16 @@ h2 {
   border-radius: 8px;
   cursor: pointer;
 }
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid lightgray;
+}
+
+tr:hover {background-color: #f1356d;}

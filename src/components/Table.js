@@ -30,6 +30,7 @@ const Table = ({ title, columnHeaders, data }) => {
             {columnHeaders.map((header) => (
               <th key={header}>{header}</th>
             ))}
+            <th>action</th>
           </tr>
         </thead>
         <tbody>
@@ -37,8 +38,8 @@ const Table = ({ title, columnHeaders, data }) => {
             <tr key={record.id}>
               <td>{record.name}</td>
               <td>{record.date}</td>
-              <td>{record.amount}</td>
               <td>{record.description}</td>
+              <td style={{ textAlign: "right" }}>{record.amount}</td>
               <td>
                 <button onClick={() => handleDelete(record.id)}>delete</button>
               </td>

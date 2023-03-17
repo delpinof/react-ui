@@ -14,7 +14,7 @@
   margin: 0 auto;
   border-bottom: 1px solid #f2f2f2;
 }
-.navbar h1 {
+h1 {
   color: #f1356d;
 }
 .navbar .links {
@@ -80,7 +80,7 @@
   text-align: left;
   display: block;
 }
-.create h2 {
+h2 {
   font-size: 20px;
   color: #f1356d;
   margin-bottom: 30px;
@@ -101,3 +101,16 @@
   border-radius: 8px;
   cursor: pointer;
 }
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid lightgray;
+}
+
+tr:hover {background-color: #f1356d;}

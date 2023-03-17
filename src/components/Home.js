@@ -13,7 +13,7 @@ const Home = () => {
       {isPending && <div>Loading...</div>}
       {expenses && (
         <Table
-          title="Expenses"
+          title="Expenses list"
           columnHeaders={columnHeaders}
           data={expenses}
         ></Table>

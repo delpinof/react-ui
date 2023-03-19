@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Table = ({ title, columnHeaders, data }) => {
+const Table = ({ columnHeaders, data }) => {
   const [records, setRecords] = useState(data);
   const [errorMsg, setErrorMsg] = useState(null);
 
@@ -22,7 +22,6 @@ const Table = ({ title, columnHeaders, data }) => {
   };
   return (
     <div className="table">
-      <h2>{title}</h2>
       {errorMsg && <p>{errorMsg}</p>}
       <table>
         <thead>

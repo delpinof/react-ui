@@ -114,3 +114,7 @@ th, td {
 }
 
 tr:hover {background-color: #f1356d;}
+
+.TableTitleContent {
+  display:flex;
+}

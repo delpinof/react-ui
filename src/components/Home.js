@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import Table from "./Table";
 
 const Home = () => {
-  const [weekList, setWeekList] = useState([null]);
-  const [weekSelected, setWeekSelected] = useState(null);
+  const [weekList, setWeekList] = useState(null);
+  const [weekNumberSelected, setWeekNumberSelected] = useState(0);
   const pastWeeks = 5;
   const url =
     "https://fherdelpino.appspot.com/expense/week?" +
@@ -22,7 +22,12 @@ const Home = () => {
       })
       .then((resData) => {
         setWeekList(resData);
-        setWeekSelected(resData[0]);
+        setWeekNumberSelected(
+          Math.max.apply(
+            Math,
+            resData.map((r) => r.week)
+          )
+        );
       })
       .catch((error) => {
         console.log(error);
@@ -31,22 +36,25 @@ const Home = () => {
 
   const handleWeekChange = (e) => {
     const weekNumber = parseInt(e.target.value);
-    const weekObject = weekList.find((record) => record.week === weekNumber);
-    setWeekSelected(weekObject);
+    setWeekNumberSelected(weekNumber);
   };
 
   return (
     <div className="home">
-      {!weekSelected && <div>Loading...</div>}
-      {weekSelected && (
+      {!weekList && <div>Loading...</div>}
+      {weekList && (
         <TableTitle
           title="Expenses list"
           data={weekList}
-          selected={weekSelected}
+          selected={weekList.find((r) => r.week === weekNumberSelected)}
           onChange={handleWeekChange}
         ></TableTitle>
       )}
-      {weekSelected && <Table weekSelected={weekSelected}></Table>}
+      {weekList && (
+        <Table
+          weekSelected={weekList.find((r) => r.week === weekNumberSelected)}
+        ></Table>
+      )}
     </div>
   );
 };

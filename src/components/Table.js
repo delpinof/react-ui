@@ -1,8 +1,30 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const Table = ({ title, columnHeaders, data }) => {
-  const [records, setRecords] = useState(data);
-  const [errorMsg, setErrorMsg] = useState(null);
+const Table = ({ weekSelected }) => {
+  const url =
+    "https://fherdelpino.appspot.com/expense?" +
+    new URLSearchParams({
+      from: weekSelected.from,
+      to: weekSelected.to,
+    });
+
+  const [expenses, setExpenses] = useState(null);
+
+  useEffect(() => {
+    fetch(url)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Couldn't fetch data from resource.");
+        }
+        return response.json();
+      })
+      .then((resData) => {
+        setExpenses(resData);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [url]);
 
   const handleDelete = (id) => {
     fetch("https://fherdelpino.appspot.com/expense/" + id, {
@@ -12,41 +34,45 @@ const Table = ({ title, columnHeaders, data }) => {
         if (!response.ok) {
           throw new Error("Couldn't delete the record.");
         }
-        setErrorMsg(null);
-        const newRecords = records.filter((record) => record.id !== id);
-        setRecords(newRecords);
+        const newRecords = expenses.filter((record) => record.id !== id);
+        setExpenses(newRecords);
       })
       .catch((error) => {
-        setErrorMsg(error.message);
+        console.log(error);
       });
   };
+
   return (
     <div className="table">
-      <h2>{title}</h2>
-      {errorMsg && <p>{errorMsg}</p>}
-      <table>
-        <thead>
-          <tr>
-            {columnHeaders.map((header) => (
-              <th key={header}>{header}</th>
-            ))}
-            <th>action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {records.map((record) => (
-            <tr key={record.id}>
-              <td>{record.name}</td>
-              <td>{record.date}</td>
-              <td>{record.description}</td>
-              <td style={{ textAlign: "right" }}>{record.amount}</td>
-              <td>
-                <button onClick={() => handleDelete(record.id)}>delete</button>
-              </td>
+      {!expenses && <div>Loading...</div>}
+      {expenses && (
+        <table>
+          <thead>
+            <tr>
+              <th>name</th>
+              <th>date</th>
+              <th>description</th>
+              <th>amount</th>
+              <th>action</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {expenses.map((record) => (
+              <tr key={record.id}>
+                <td>{record.name}</td>
+                <td>{record.date}</td>
+                <td>{record.description}</td>
+                <td style={{ textAlign: "right" }}>{record.amount}</td>
+                <td>
+                  <button onClick={() => handleDelete(record.id)}>
+                    delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };

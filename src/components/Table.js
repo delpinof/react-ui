@@ -43,37 +43,47 @@ const Table = ({ weekSelected }) => {
   };
 
   return (
-    <div className="table">
-      {!expenses && <div>Loading...</div>}
-      {expenses && (
-        <table>
-          <thead>
-            <tr>
-              <th>name</th>
-              <th>date</th>
-              <th>description</th>
-              <th>amount</th>
-              <th>action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {expenses.map((record) => (
-              <tr key={record.id}>
-                <td>{record.name}</td>
-                <td>{record.date}</td>
-                <td>{record.description}</td>
-                <td style={{ textAlign: "right" }}>{record.amount}</td>
-                <td>
-                  <button onClick={() => handleDelete(record.id)}>
-                    delete
-                  </button>
-                </td>
+    <>
+      <div className="table">
+        {!expenses && <div>Loading...</div>}
+        {expenses && (
+          <table>
+            <thead>
+              <tr>
+                <th>name</th>
+                <th>date</th>
+                <th>description</th>
+                <th>amount</th>
+                <th>action</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {expenses.map((record) => (
+                <tr key={record.id}>
+                  <td>{record.name}</td>
+                  <td>{record.date}</td>
+                  <td>{record.description}</td>
+                  <td style={{ textAlign: "right" }}>{record.amount}</td>
+                  <td>
+                    <button onClick={() => handleDelete(record.id)}>
+                      delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </div>
+      {expenses && (
+        <div>
+          <br />
+          <p>
+            Total: {expenses.map((e) => e.amount).reduce((a, b) => a + b, 0)}
+          </p>
+        </div>
       )}
-    </div>
+    </>
   );
 };
 
